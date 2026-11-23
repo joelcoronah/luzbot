@@ -1,0 +1,22 @@
+services:
+  luzbot:
+    build: .
+    restart: unless-stopped
+    environment:
+      TELEGRAM_TOKEN: ${TELEGRAM_TOKEN:?Set TELEGRAM_TOKEN in Dokploy}
+      TELEGRAM_CHAT_ID: ${TELEGRAM_CHAT_ID:?Set TELEGRAM_CHAT_ID in Dokploy}
+      HEARTBEAT_TOKEN: ${HEARTBEAT_TOKEN:?Set HEARTBEAT_TOKEN in Dokploy}
+      LISTEN_HOST: 0.0.0.0
+      LISTEN_PORT: 8787
+      DB_PATH: /data/luzbot.db
+      TIMEOUT_SECONDS: ${TIMEOUT_SECONDS:-180}
+      TIMEZONE: ${TIMEZONE:-America/Caracas}
+      LANGUAGE: ${LANGUAGE:-es}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    ports:
+      - "127.0.0.1:8787:8787"
+    volumes:
+      - luzbot_data:/data
+
+volumes:
+  luzbot_data:

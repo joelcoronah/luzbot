@@ -85,6 +85,26 @@ You need a server reachable from the internet (a $4–6/month VPS is plenty), a 
 
 ### 2. Install luzbot on the server (Ubuntu/Debian)
 
+#### Deploy with Dokploy (recommended if it is already installed)
+
+1. Push this repository to GitHub/GitLab and create an application from it in Dokploy.
+2. Select **Docker Compose** and use the root `docker-compose.yml` file.
+3. In **Environment**, set `TELEGRAM_TOKEN`, `TELEGRAM_CHAT_ID` and `HEARTBEAT_TOKEN`. Generate the last one with `python3 -c 'import secrets; print(secrets.token_urlsafe(32))'`. The compose file defaults to `TIMEZONE=America/Caracas`, `LANGUAGE=es` and a 180-second timeout; you can change these there.
+4. Deploy the application. The container listens on port **8787** and stores SQLite in the persistent `luzbot_data` volume mounted at `/data`.
+5. Under **Domains**, add a domain or subdomain and point the proxy to service `luzbot`, port **8787**, with HTTPS enabled. Dokploy's proxy should forward `/heartbeat` to the container. Do not configure a second Caddy proxy on the VPS.
+6. Check that the application is healthy, then send a test heartbeat:
+
+```bash
+curl -i -X POST -H "Authorization: Bearer <HEARTBEAT_TOKEN>" https://<your-domain>/heartbeat
+# Should return HTTP 204
+```
+
+Set the token as an environment variable in Dokploy; do not store it in the repository. Keep the `luzbot_data` volume because it contains the monitor state and outage history.
+
+To test locally first, copy `.env.example` to `.env`, replace the three required values, and run `docker compose up --build -d`. The service is available only on your PC at `http://127.0.0.1:8787`; `.env` is excluded from Git. Stop it with `docker compose down` (the data volume is preserved).
+
+#### Manual systemd installation
+
 ```bash
 sudo git clone https://github.com/OWNER/luzbot.git /opt/luzbot
 

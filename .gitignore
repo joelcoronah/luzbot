@@ -12,3 +12,4 @@ dist/
 *.db-*
 *.env
 !deploy/luzbot.env.example
+!.env.example
