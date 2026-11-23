@@ -26,7 +26,7 @@ Power cuts are frequent where I live, and I wanted to know about them while away
 - My ISP uses **CGNAT**: the router's WAN address is private (`10.x.x.x`) and the public IPv4 is shared with other customers, so nothing on the internet can reach my home. Dynamic DNS doesn't help, because it would point at the ISP's shared address, which stays up when my house goes dark.
 - The router does have a public **IPv6** address, but its firewall drops inbound ICMP, and opening it would mean exposing the router to the internet.
 
-So luzbot flips the direction: a **heartbeat** (a *dead man's switch*). A device at home that is always plugged in (an old Android phone, a Raspberry Pi, an ESP32...) calls the server every minute. When the calls stop, the server raises the alarm. Outbound connections work through any NAT, firewall or IP change, and nothing at home has to be opened.
+So luzbot flips the direction: a **heartbeat** (a _dead man's switch_). A device at home that is always plugged in (an old Android phone, a Raspberry Pi, an ESP32...) calls the server every minute. When the calls stop, the server raises the alarm. Outbound connections work through any NAT, firewall or IP change, and nothing at home has to be opened.
 
 ## How it works
 
@@ -45,6 +45,7 @@ flowchart LR
     end
     D -- "POST /heartbeat<br/>every 60 s" --> C
     N --> T["📨 Telegram"]
+
     T <--> L
 ```
 
@@ -145,12 +146,12 @@ curl -i -X POST -H "Authorization: Bearer $HEARTBEAT_TOKEN" https://203-0-113-10
 
 **Android phone (no SIM needed, it uses the home WiFi)** with [MacroDroid](https://www.macrodroid.com/):
 
-| | |
-|---|---|
-| Trigger | *Regular interval* → every **1 minute** |
-| Action | *HTTP request* → **POST** `https://<your-host>/heartbeat` |
-| Header | `Authorization: Bearer <HEARTBEAT_TOKEN>` |
-| Query parameter (optional) | `charging` = MacroDroid's *power connected* magic text |
+|                            |                                                           |
+| -------------------------- | --------------------------------------------------------- |
+| Trigger                    | _Regular interval_ → every **1 minute**                   |
+| Action                     | _HTTP request_ → **POST** `https://<your-host>/heartbeat` |
+| Header                     | `Authorization: Bearer <HEARTBEAT_TOKEN>`                 |
+| Query parameter (optional) | `charging` = MacroDroid's _power connected_ magic text    |
 
 Then, on the phone: set MacroDroid's battery usage to **unrestricted**, allow it to start at boot, and keep WiFi on during sleep. If the phone supports it, enable a charge limit (e.g. 80%) to protect a battery that is always plugged in.
 
@@ -166,27 +167,27 @@ Turn off WiFi on the home device: after about 3 minutes you get 🔴. Turn it ba
 
 ## API
 
-| Method | Path | Auth | Response |
-|---|---|---|---|
+| Method       | Path         | Auth                                                             | Response                         |
+| ------------ | ------------ | ---------------------------------------------------------------- | -------------------------------- |
 | `POST`/`GET` | `/heartbeat` | `Authorization: Bearer <token>`, `X-Token: <token>` or `?token=` | `204`, or `401` with a bad token |
-| `GET` | `/healthz` | none (localhost only, not proxied) | `200 ok` |
+| `GET`        | `/healthz`   | none (localhost only, not proxied)                               | `200 ok`                         |
 
 Optional field `charging` (`true`/`false`/`on`/`off`/`1`/`0`...) in the query string, a form body or a JSON body.
 
 ## Configuration
 
-| Variable | Default | Description |
-|---|---|---|
-| `TELEGRAM_TOKEN` | *required* | Bot token from @BotFather |
-| `TELEGRAM_CHAT_ID` | *required* | The only chat that receives alerts and can run commands |
-| `HEARTBEAT_TOKEN` | *required* | Shared secret, at least 24 characters |
-| `TIMEOUT_SECONDS` | `180` | Silence before declaring an outage (min 60) |
-| `CHECK_INTERVAL_SECONDS` | `15` | How often the watcher checks |
-| `TIMEZONE` | `UTC` | IANA timezone for displayed times, e.g. `America/Caracas` |
-| `LANGUAGE` | `es` | `es` or `en` |
-| `LISTEN_HOST` / `LISTEN_PORT` | `127.0.0.1` / `8787` | Where the HTTP endpoint listens |
-| `DB_PATH` | `luzbot.db` | SQLite file |
-| `LOG_LEVEL` | `INFO` | Python logging level |
+| Variable                      | Default              | Description                                               |
+| ----------------------------- | -------------------- | --------------------------------------------------------- |
+| `TELEGRAM_TOKEN`              | _required_           | Bot token from @BotFather                                 |
+| `TELEGRAM_CHAT_ID`            | _required_           | The only chat that receives alerts and can run commands   |
+| `HEARTBEAT_TOKEN`             | _required_           | Shared secret, at least 24 characters                     |
+| `TIMEOUT_SECONDS`             | `180`                | Silence before declaring an outage (min 60)               |
+| `CHECK_INTERVAL_SECONDS`      | `15`                 | How often the watcher checks                              |
+| `TIMEZONE`                    | `UTC`                | IANA timezone for displayed times, e.g. `America/Caracas` |
+| `LANGUAGE`                    | `es`                 | `es` or `en`                                              |
+| `LISTEN_HOST` / `LISTEN_PORT` | `127.0.0.1` / `8787` | Where the HTTP endpoint listens                           |
+| `DB_PATH`                     | `luzbot.db`          | SQLite file                                               |
+| `LOG_LEVEL`                   | `INFO`               | Python logging level                                      |
 
 ## Limitations
 
