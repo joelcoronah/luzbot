@@ -1,0 +1,27 @@
+[Unit]
+Description=luzbot - power outage notifier
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/luzbot
+EnvironmentFile=/etc/luzbot/luzbot.env
+ExecStart=/usr/bin/python3 -m luzbot
+Restart=always
+RestartSec=5
+
+# Run as an unprivileged throwaway user with a private, writable state dir
+DynamicUser=yes
+StateDirectory=luzbot
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+
+[Install]
+WantedBy=multi-user.target

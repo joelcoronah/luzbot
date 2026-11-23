@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.pytest_cache/
+.ruff_cache/
+build/
+dist/
+
+# Runtime data and secrets
+*.db
+*.db-*
+*.env
+!deploy/luzbot.env.example

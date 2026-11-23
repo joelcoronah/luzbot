@@ -1,0 +1,12 @@
+# Caddy gets a free HTTPS certificate automatically.
+# No domain? Use sslip.io: if your VPS IP is 203.0.113.10, the hostname
+# 203-0-113-10.sslip.io resolves to it.
+your-vps-ip-with-dashes.sslip.io {
+	# Only the heartbeat endpoint is exposed; everything else is a 404.
+	handle /heartbeat {
+		reverse_proxy 127.0.0.1:8787
+	}
+	handle {
+		respond 404
+	}
+}
