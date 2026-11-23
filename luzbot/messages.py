@@ -25,10 +25,16 @@ TEXTS: dict[str, dict[str, str]] = {
         "status_unknown": "⏳ Todavía no recibo ningún latido de casa.",
         "armed": "🔔 Vigilancia armada. Te avisaré si dejan de llegar pulsos.",
         "already_armed": "🔔 La vigilancia ya estaba armada.",
-        "disarmed": "🔕 Vigilancia desarmada. Los pulsos siguen llegando, pero no enviaré alertas de cortes.",
+        "disarmed": (
+            "🔕 Vigilancia desarmada. Los pulsos siguen llegando, "
+            "pero no enviaré alertas de cortes."
+        ),
         "already_disarmed": "🔕 La vigilancia ya estaba desarmada.",
         "status_disarmed": "🔕 Vigilancia desarmada",
-        "status_disarmed_heartbeat": "🔕 Vigilancia desarmada\nÚltimo latido: hace {ago} ({last})",
+        "status_disarmed_heartbeat": (
+            "🔕 Vigilancia desarmada\n"
+            "Último latido: hace {ago} ({last})"
+        ),
         "stats_30d": "Últimos 30 días: {count} corte(s), {total} en total.",
         "history_header": "Últimos cortes:",
         "history_empty": "No hay cortes registrados. 🎉",
@@ -59,7 +65,9 @@ TEXTS: dict[str, dict[str, str]] = {
         "status_unknown": "⏳ No heartbeat received from home yet.",
         "armed": "🔔 Monitoring armed. I will alert you if heartbeats stop.",
         "already_armed": "🔔 Monitoring was already armed.",
-        "disarmed": "🔕 Monitoring disarmed. Heartbeats continue, but outage alerts are muted.",
+        "disarmed": (
+            "🔕 Monitoring disarmed. Heartbeats continue, but outage alerts are muted."
+        ),
         "already_disarmed": "🔕 Monitoring was already disarmed.",
         "status_disarmed": "🔕 Monitoring disarmed",
         "status_disarmed_heartbeat": "🔕 Monitoring disarmed\nLast heartbeat: {ago} ago ({last})",
