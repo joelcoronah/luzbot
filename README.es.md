@@ -159,6 +159,7 @@ Apaga el WiFi del dispositivo de casa: a los 3 minutos más o menos te llega �
 
 - `/estado`: estado actual y resumen de los últimos 30 días
 - `/historial`: los últimos 10 cortes
+- `/armar` / `/desarmar`: activar o silenciar las alertas de cortes. Los pulsos siguen llegando mientras está desarmado; el estado se conserva al reiniciar.
 - `/ayuda`: lista de comandos
 
 ## Configuración

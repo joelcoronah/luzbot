@@ -23,12 +23,21 @@ TEXTS: dict[str, dict[str, str]] = {
         "status_online": "🟢 Casa en línea\nÚltimo latido: hace {ago} ({last})",
         "status_offline": "🔴 Sin señal de casa desde {start} (hace {ago})",
         "status_unknown": "⏳ Todavía no recibo ningún latido de casa.",
+        "armed": "🔔 Vigilancia armada. Te avisaré si dejan de llegar pulsos.",
+        "already_armed": "🔔 La vigilancia ya estaba armada.",
+        "disarmed": "🔕 Vigilancia desarmada. Los pulsos siguen llegando, pero no enviaré alertas de cortes.",
+        "already_disarmed": "🔕 La vigilancia ya estaba desarmada.",
+        "status_disarmed": "🔕 Vigilancia desarmada",
+        "status_disarmed_heartbeat": "🔕 Vigilancia desarmada\nÚltimo latido: hace {ago} ({last})",
         "stats_30d": "Últimos 30 días: {count} corte(s), {total} en total.",
         "history_header": "Últimos cortes:",
         "history_empty": "No hay cortes registrados. 🎉",
         "history_item": "• {start} → {end} ({duration})",
         "ongoing": "en curso",
-        "help": ("Comandos:\n/estado — estado actual\n/historial — últimos cortes"),
+        "help": (
+            "Comandos:\n/estado — estado actual\n/historial — últimos cortes\n"
+            "/armar — activar alertas\n/desarmar — silenciar alertas"
+        ),
         "less_than_minute": "menos de 1 min",
     },
     "en": {
@@ -48,12 +57,21 @@ TEXTS: dict[str, dict[str, str]] = {
         "status_online": "🟢 Home is online\nLast heartbeat: {ago} ago ({last})",
         "status_offline": "🔴 No signal from home since {start} ({ago} ago)",
         "status_unknown": "⏳ No heartbeat received from home yet.",
+        "armed": "🔔 Monitoring armed. I will alert you if heartbeats stop.",
+        "already_armed": "🔔 Monitoring was already armed.",
+        "disarmed": "🔕 Monitoring disarmed. Heartbeats continue, but outage alerts are muted.",
+        "already_disarmed": "🔕 Monitoring was already disarmed.",
+        "status_disarmed": "🔕 Monitoring disarmed",
+        "status_disarmed_heartbeat": "🔕 Monitoring disarmed\nLast heartbeat: {ago} ago ({last})",
         "stats_30d": "Last 30 days: {count} outage(s), {total} in total.",
         "history_header": "Recent outages:",
         "history_empty": "No outages recorded. 🎉",
         "history_item": "• {start} → {end} ({duration})",
         "ongoing": "ongoing",
-        "help": ("Commands:\n/status — current status\n/history — recent outages"),
+        "help": (
+            "Commands:\n/status — current status\n/history — recent outages\n"
+            "/arm — enable alerts\n/disarm — mute alerts"
+        ),
         "less_than_minute": "less than 1 min",
     },
 }

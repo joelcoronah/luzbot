@@ -71,6 +71,7 @@ UNKNOWN --first heartbeat--> ONLINE --no heartbeat for TIMEOUT--> OFFLINE
 - 🔴/🟢 Alerts on outage and recovery, with duration
 - `/status` (`/estado`): current state plus a 30-day summary
 - `/history` (`/historial`): the 10 most recent outages
+- `/arm` (`/armar`) and `/disarm` (`/desarmar`): enable or mute outage alerts. Heartbeats continue while disarmed; the setting survives restarts.
 - Messages in Spanish or English, times in your timezone
 - Works with any client that can make an HTTP request
 

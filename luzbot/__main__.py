@@ -55,6 +55,10 @@ def main() -> int:
             "/estado": monitor.status_report,
             "/history": monitor.history_report,
             "/historial": monitor.history_report,
+            "/arm": monitor.arm,
+            "/armar": monitor.arm,
+            "/disarm": monitor.disarm,
+            "/desarmar": monitor.disarm,
         },
         reply=notifier,
     )
